@@ -5,13 +5,14 @@ import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 
-export default function Register() {
+export default function Register({ authors }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
         password: '',
         password_confirmation: '',
-        role: 'collaborator', // default role
+        role: 'collaborator',
+        parent_id: '', 
     });
 
     const submit = (e) => {
@@ -107,7 +108,27 @@ export default function Register() {
                     </select>
                     <InputError message={errors.role} className="mt-2" />
                 </div>
-
+               {data.role === '2' && (
+                    <div className="mt-4">
+                        <InputLabel htmlFor="parent_id" value="Select Author" />
+                        <select
+                            id="parent_id"
+                            name="parent_id"
+                            value={data.parent_id || ''}
+                            onChange={(e) => setData('parent_id', e.target.value)}
+                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                            required
+                        >
+                            <option value="">Select Author</option>
+                            {authors.map(author => (
+                                <option key={author.id} value={author.id}>
+                                    {author.name}
+                                </option>
+                            ))}
+                        </select>
+                        <InputError message={errors.parent_id} className="mt-2" />
+                    </div>
+                )}
                 {/* Submit */}
                 <div className="mt-4 flex items-center justify-end">
                     <Link

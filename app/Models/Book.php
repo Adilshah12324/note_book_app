@@ -14,5 +14,6 @@ class Book extends Model
     protected $fillable = [
         'title',
         'release_date',
+        'user_id'
     ];
 }

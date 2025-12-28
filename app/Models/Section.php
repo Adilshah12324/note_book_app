@@ -13,5 +13,7 @@ class Section extends Model
     protected $fillable = [
         'title',
         'parent_id',
+        'book_id',
+        'parent_id',
     ];
 }
